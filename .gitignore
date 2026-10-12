@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.next/
+.turbo/
+.env
+.env.local
+# 크롤링 원문(해석 문구)은 저작물이므로 저장소에 올리지 않는다
+tools/crawler/output/
+__pycache__/
+
+# 개발용 해석 캐시
+.cache/
+out/
+.env*.local

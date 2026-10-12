@@ -1,0 +1,242 @@
+[
+  {
+    "id": "c01",
+    "note": "기본",
+    "input": {
+      "sex": "남",
+      "birth": "1990-01-01",
+      "hour": "12",
+      "cal": "S_C"
+    },
+    "expected": {
+      "year": "己巳",
+      "month": "丙子",
+      "day": "丙寅",
+      "hour": "甲午"
+    }
+  },
+  {
+    "id": "c02",
+    "note": "기본 여성",
+    "input": {
+      "sex": "여",
+      "birth": "1975-12-25",
+      "hour": "20",
+      "cal": "S_C"
+    },
+    "expected": {
+      "year": "乙卯",
+      "month": "戊子",
+      "day": "乙巳",
+      "hour": "丙戌"
+    }
+  },
+  {
+    "id": "c03",
+    "note": "기본",
+    "input": {
+      "sex": "남",
+      "birth": "1965-06-15",
+      "hour": "04",
+      "cal": "S_C"
+    },
+    "expected": {
+      "year": "乙巳",
+      "month": "壬午",
+      "day": "庚子",
+      "hour": "戊寅"
+    }
+  },
+  {
+    "id": "c04",
+    "note": "입춘(17:27) 직전",
+    "input": {
+      "sex": "남",
+      "birth": "2024-02-04",
+      "hour": "16",
+      "cal": "S_C"
+    },
+    "expected": {
+      "year": "癸卯",
+      "month": "乙丑",
+      "day": "戊戌",
+      "hour": "庚申"
+    }
+  },
+  {
+    "id": "c05",
+    "note": "입춘 직후",
+    "input": {
+      "sex": "남",
+      "birth": "2024-02-04",
+      "hour": "18",
+      "cal": "S_C"
+    },
+    "expected": {
+      "year": "甲辰",
+      "month": "丙寅",
+      "day": "戊戌",
+      "hour": "辛酉"
+    }
+  },
+  {
+    "id": "c06",
+    "note": "입동 당일",
+    "input": {
+      "sex": "여",
+      "birth": "1992-11-07",
+      "hour": "14",
+      "cal": "S_C"
+    },
+    "expected": {
+      "year": "壬申",
+      "month": "庚戌",
+      "day": "丁亥",
+      "hour": "丁未"
+    }
+  },
+  {
+    "id": "c07",
+    "note": "자시 01:00",
+    "input": {
+      "sex": "남",
+      "birth": "2000-01-01",
+      "hour": "01",
+      "cal": "S_C"
+    },
+    "expected": {
+      "year": "己卯",
+      "month": "丙子",
+      "day": "戊午",
+      "hour": "壬子"
+    }
+  },
+  {
+    "id": "c08",
+    "note": "해시",
+    "input": {
+      "sex": "남",
+      "birth": "2000-01-01",
+      "hour": "22",
+      "cal": "S_C"
+    },
+    "expected": {
+      "year": "己卯",
+      "month": "丙子",
+      "day": "戊午",
+      "hour": "癸亥"
+    }
+  },
+  {
+    "id": "c09",
+    "note": "서머타임 기간",
+    "input": {
+      "sex": "여",
+      "birth": "1988-07-01",
+      "hour": "12",
+      "cal": "S_C"
+    },
+    "expected": {
+      "year": "戊辰",
+      "month": "戊午",
+      "day": "丁巳",
+      "hour": "丙午"
+    }
+  },
+  {
+    "id": "c10",
+    "note": "UTC+8:30 시기",
+    "input": {
+      "sex": "남",
+      "birth": "1958-05-01",
+      "hour": "08",
+      "cal": "S_C"
+    },
+    "expected": {
+      "year": "戊戌",
+      "month": "丙辰",
+      "day": "戊寅",
+      "hour": "丙辰"
+    }
+  },
+  {
+    "id": "c11",
+    "note": "음력 윤8월",
+    "input": {
+      "sex": "여",
+      "birth": "1995-08-15",
+      "hour": "10",
+      "cal": "L_L"
+    },
+    "expected": {
+      "year": "乙亥",
+      "month": "乙酉",
+      "day": "癸卯",
+      "hour": "丁巳"
+    }
+  },
+  {
+    "id": "c12",
+    "note": "음력 평달",
+    "input": {
+      "sex": "남",
+      "birth": "2010-10-10",
+      "hour": "16",
+      "cal": "L_C"
+    },
+    "expected": {
+      "year": "庚寅",
+      "month": "丁亥",
+      "day": "己巳",
+      "hour": "壬申"
+    }
+  },
+  {
+    "id": "c13",
+    "note": "축시",
+    "input": {
+      "sex": "여",
+      "birth": "1960-01-01",
+      "hour": "02",
+      "cal": "S_C"
+    },
+    "expected": {
+      "year": "己亥",
+      "month": "丙子",
+      "day": "戊子",
+      "hour": "癸丑"
+    }
+  },
+  {
+    "id": "c14",
+    "note": "경칩 당일",
+    "input": {
+      "sex": "남",
+      "birth": "2023-03-06",
+      "hour": "06",
+      "cal": "S_C"
+    },
+    "expected": {
+      "year": "癸卯",
+      "month": "乙卯",
+      "day": "癸亥",
+      "hour": "乙卯"
+    }
+  },
+  {
+    "id": "c15",
+    "note": "연말 해시",
+    "input": {
+      "sex": "여",
+      "birth": "1999-12-31",
+      "hour": "22",
+      "cal": "S_C"
+    },
+    "expected": {
+      "year": "己卯",
+      "month": "丙子",
+      "day": "丁巳",
+      "hour": "辛亥"
+    }
+  }
+]
