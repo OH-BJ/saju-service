@@ -60,8 +60,8 @@ export function ChartTable({ chart }: { chart: Chart }) {
         <tr>
           <th>12운성</th>
           {COLUMNS.map(({ key }) => (
-            <td key={key} className="sub">
-              {analysis.unseong12[key] ?? "-"}
+            <td key={key}>
+              <span className="sub">{analysis.unseong12[key] ?? "-"}</span>
             </td>
           ))}
         </tr>
