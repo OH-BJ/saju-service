@@ -12,3 +12,5 @@ __pycache__/
 .cache/
 out/
 .env*.local
+
+*.tsbuildinfo

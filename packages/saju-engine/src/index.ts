@@ -9,17 +9,25 @@ import { JIJANGGAN } from "./constants/ganji.js";
 import { dayPillar } from "./pillars/day.js";
 import { hourBranch, hourPillar } from "./pillars/hour.js";
 import { monthPillar } from "./pillars/month.js";
-import { pillarFromIndex } from "./pillars/pillar.js";
 import { yearPillar } from "./pillars/year.js";
+import { findRelations, gongmang, type Slot } from "./analysis/relations.js";
+import { sinsal12, specialStars } from "./analysis/sinsal.js";
+import { computeStrength } from "./analysis/strength.js";
+import { computeYongsin } from "./analysis/yongsin.js";
 import type { BirthInput, Chart, ChartAnalysis, ChartOptions, PillarKey, Pillars } from "./types.js";
 
 export * from "./types.js";
 export * from "./constants/ganji.js";
 export { UNSEONG12, unseong12 } from "./analysis/unseong12.js";
 export { sipsinOfStem, sipsinOfBranch } from "./analysis/sipsin.js";
-
-/** 세운: 해당 양력 연도(입춘 이후)의 간지 */
-export const yearGanji = (year: number) => pillarFromIndex(year - 1984);
+export * from "./analysis/relations.js";
+export * from "./analysis/sinsal.js";
+export * from "./analysis/strength.js";
+export * from "./analysis/yongsin.js";
+export * from "./fortune/period.js";
+export * from "./fortune/tojung.js";
+export * from "./fortune/gunghap.js";
+export { makePillar, pillarFromIndex } from "./pillars/pillar.js";
 
 const DEFAULT_OPTIONS: Required<ChartOptions> = { hourCorrection: "kst30", ziHour: "split" };
 const DAY_MS = 86_400_000;
@@ -86,17 +94,45 @@ export function computeChart(input: BirthInput, options: ChartOptions = {}): Cha
   };
 }
 
+const KEYS: PillarKey[] = ["year", "month", "day", "hour"];
+
+/** 원국의 8글자를 관계 계산용 슬롯으로 (id = "year.stem" 등, prefix로 그룹 구분) */
+export function chartSlots(p: Pillars, prefix = ""): Slot[] {
+  const out: Slot[] = [];
+  for (const k of KEYS) {
+    const pillar = p[k];
+    if (!pillar) continue;
+    out.push({ id: `${prefix}${k}.stem`, kind: "stem", value: pillar.stem });
+    out.push({ id: `${prefix}${k}.branch`, kind: "branch", value: pillar.branch });
+  }
+  return out;
+}
+
 function analyze(p: Pillars): ChartAnalysis {
   const dayStem = p.day.stem;
-  const keys: PillarKey[] = ["year", "month", "day", "hour"];
-  const result = { ohaeng: countOhaeng(p), sipsin: {}, jijanggan: {}, unseong12: {} } as ChartAnalysis;
-  for (const k of keys) {
+  const ohaeng = countOhaeng(p);
+  const strength = computeStrength(p);
+  const gm = gongmang(p.day.stem, p.day.branch);
+  const result = {
+    ohaeng,
+    sipsin: {},
+    jijanggan: {},
+    unseong12: {},
+    sinsal12: {},
+    stars: specialStars(p),
+    relations: findRelations(chartSlots(p)),
+    gongmang: { branches: gm, at: KEYS.filter((k) => k !== "day" && p[k] && gm.includes(p[k]!.branch)) },
+    strength,
+    yongsin: computeYongsin(p, ohaeng, strength),
+  } as ChartAnalysis;
+  for (const k of KEYS) {
     const pillar = p[k];
     result.sipsin[k] = pillar
       ? { stem: k === "day" ? "일간" : sipsinOfStem(dayStem, pillar.stem), branch: sipsinOfBranch(dayStem, pillar.branch) }
       : null;
     result.jijanggan[k] = pillar ? [...JIJANGGAN[pillar.branch]!] : null;
     result.unseong12[k] = pillar ? unseong12(dayStem, pillar.branch) : null;
+    result.sinsal12[k] = pillar ? sinsal12(p.year.branch, pillar.branch) : null;
   }
   return result;
 }

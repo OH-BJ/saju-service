@@ -1,3 +1,8 @@
+import type { Relation } from "./analysis/relations.js";
+import type { SpecialStar } from "./analysis/sinsal.js";
+import type { Strength } from "./analysis/strength.js";
+import type { Yongsin } from "./analysis/yongsin.js";
+
 export type CalendarType = "solar" | "lunar" | "lunar-leap";
 export type Gender = "male" | "female";
 
@@ -62,6 +67,16 @@ export interface ChartAnalysis {
   jijanggan: Record<PillarKey, number[] | null>;
   /** 일간 기준 각 지지의 12운성 */
   unseong12: Record<PillarKey, string | null>;
+  /** 년지 기준 12신살 */
+  sinsal12: Record<PillarKey, string | null>;
+  /** 주요 신살 (귀인·도화·역마·화개·양인 등) */
+  stars: SpecialStar[];
+  /** 원국 안의 합·충·형·파·해·원진. 슬롯 id는 "year.stem", "day.branch" 형식 */
+  relations: Relation[];
+  /** 일주 기준 공망 지지 두 개와, 원국에서 공망에 해당하는 기둥 */
+  gongmang: { branches: [number, number]; at: PillarKey[] };
+  strength: Strength;
+  yongsin: Yongsin;
 }
 
 export interface Daeun {
