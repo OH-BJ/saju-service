@@ -92,8 +92,8 @@ describe("메뉴별 해석", () => {
     const a = buildTodayReading(me, { year: 2026, month: 10, day: 13 });
     const b = buildTodayReading(me, { year: 2026, month: 10, day: 14 });
     expect(a.iljin.hanja).not.toBe(b.iljin.hanja);
-    expect(a.score).toBeGreaterThanOrEqual(40);
-    expect(a.score).toBeLessThanOrEqual(92);
+    expect(a.score).toBeGreaterThanOrEqual(0);
+    expect(a.score).toBeLessThanOrEqual(100);
     expectClean(allText(a));
   });
 

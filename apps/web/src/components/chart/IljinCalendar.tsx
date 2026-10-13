@@ -50,8 +50,8 @@ export function IljinCalendar({ chart, selected, today, onSelect }: { chart: Cha
           <span key={`e${i}`} aria-hidden="true" />
         ))}
         {days.map(({ d, score, iljin }) => {
-          // 40~90점 → 먹 농도 0.05~0.6
-          const ink = Math.max(0.05, Math.min(0.6, 0.05 + ((score - 40) / 50) * 0.55));
+          // 0~100점 → 먹 농도 0.04~0.62
+          const ink = 0.04 + (score / 100) * 0.58;
           const isSel = sameDay(d, selected);
           const isToday = sameDay(d, today);
           return (
