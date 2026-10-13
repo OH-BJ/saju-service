@@ -419,3 +419,10 @@ body {
     stroke-dasharray: 0 var(--c);
   }
 }
+
+/* 컴퓨터 화면에서는 전체를 110%로 (휴대폰은 그대로) */
+@media (min-width: 768px) and (pointer: fine) {
+  html {
+    zoom: 1.1;
+  }
+}

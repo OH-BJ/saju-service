@@ -62,13 +62,13 @@ export function SealDrop({ pillars, caption, onDone }: { pillars: Pillars; capti
                           </span>
                         </>
                       ) : (
-                        <span className="brush" style={{ animationDelay: `${stemDelay}s` }}>
+                        <span className={`brush ${p ? "" : "text-ink-faint"}`} style={{ animationDelay: `${stemDelay}s` }}>
                           {p ? STEMS[p.stem] : "?"}
                         </span>
                       )}
                     </div>
                     <div className="grid size-12 place-items-center font-brush text-[40px] leading-none">
-                      <span className="brush" style={{ animationDelay: `${branchDelay}s` }}>
+                      <span className={`brush ${p ? "" : "text-ink-faint"}`} style={{ animationDelay: `${branchDelay}s` }}>
                         {p ? BRANCHES[p.branch] : "?"}
                       </span>
                     </div>
