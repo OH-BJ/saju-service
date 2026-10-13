@@ -4,14 +4,18 @@ import {
   computeChart,
   computeGunghap,
   gongmang,
+  iljinNum,
   lunarMonthDays,
+  makePillar,
   monthGanjiOn,
   monthsOfYear,
   seoncheonsu,
   sinsal12,
   stemRelation,
+  taeseNum,
   toLunarDate,
   tojungGwae,
+  wolgeonNum,
   yearGanji,
 } from "../src/index.js";
 
@@ -105,6 +109,29 @@ describe("세운·월운", () => {
 describe("토정비결", () => {
   it("선천수", () => {
     expect(seoncheonsu(yearGanji(2027))).toBe(6 + 8); // 丁6 未8
+  });
+
+  it("조견표 수: 태세·월건·일진", () => {
+    const p = (s: number, b: number) => makePillar(s, b);
+    // 전통 조견표 값 (甲子 20/18/18, 乙酉 20/14/18, 丙辰 20/12/18, 癸巳 14/9/12, 己丑 22/17/20)
+    expect([taeseNum(p(0, 0)), wolgeonNum(p(0, 0)), iljinNum(p(0, 0))]).toEqual([20, 18, 18]);
+    expect([taeseNum(p(1, 9)), wolgeonNum(p(1, 9)), iljinNum(p(1, 9))]).toEqual([20, 14, 18]);
+    expect([taeseNum(p(2, 4)), wolgeonNum(p(2, 4)), iljinNum(p(2, 4))]).toEqual([20, 12, 18]);
+    expect([taeseNum(p(9, 5)), wolgeonNum(p(9, 5)), iljinNum(p(9, 5))]).toEqual([14, 9, 12]);
+    expect([taeseNum(p(5, 1)), wolgeonNum(p(5, 1)), iljinNum(p(5, 1))]).toEqual([22, 17, 20]);
+  });
+
+  it("공개된 작괘 예시: 음력 1976-08-26생의 2005년 → 212", () => {
+    const g = tojungGwae({ year: 1976, month: 8, day: 26, leap: false }, 2005);
+    expect(g.steps.age).toBe(30);
+    expect(g.steps.taese).toMatchObject({ num: 20 });
+    expect(g.steps.taese.pillar.hanja).toBe("乙酉");
+    expect(g.steps.monthDays).toBe(29);
+    expect(g.steps.wolgeon.pillar.hanja).toBe("乙酉");
+    expect(g.steps.wolgeon.num).toBe(14);
+    expect(g.steps.iljin.pillar.hanja).toBe("丙辰");
+    expect(g.steps.iljin.num).toBe(18);
+    expect(g.code).toBe(212);
   });
 
   it("작괘는 상1~8·중1~6·하1~3", () => {

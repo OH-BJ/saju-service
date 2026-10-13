@@ -53,7 +53,7 @@ export function buildTojungReading(chart: Chart, year: number): TojungReading {
         `상괘 ${gwae.upper}: 세는나이 ${s.age} + 태세수 ${s.taese.num}(${pillarLabel(s.taese.pillar)}) = ${s.age + s.taese.num}, 8로 나눈 나머지.`,
         `중괘 ${gwae.middle}: 음력 ${birthLunar.month}월의 날수 ${s.monthDays} + 월건수 ${s.wolgeon.num}(${pillarLabel(s.wolgeon.pillar)}) = ${s.monthDays + s.wolgeon.num}, 6으로 나눈 나머지.`,
         `하괘 ${gwae.lower}: 음력 생일 ${s.birthDay} + 일진수 ${s.iljin.num}(${pillarLabel(s.iljin.pillar)}) = ${s.birthDay + s.iljin.num}, 3으로 나눈 나머지.`,
-        `나머지가 0이면 각각 8·6·3으로 봅니다. 수는 간지의 선천수를 썼고, 판본에 따라 셈법이 조금 다를 수 있습니다.${birthLunar.leap ? " 윤달에 태어나 평달로 계산했습니다." : ""}`,
+        `나머지가 0이면 각각 8·6·3으로 봅니다. 태세수·월건수·일진수는 전통 조견표의 값을 썼습니다.${birthLunar.leap ? " 윤달에 태어나 평달로 계산했습니다." : ""}`,
       ],
       evidence: [{ label: `음력 생일 ${birthLunar.month}/${birthLunar.day}${birthLunar.leap ? " 윤" : ""}` }, { label: `괘 ${gwae.code}`, term: "토정비결" }],
     },

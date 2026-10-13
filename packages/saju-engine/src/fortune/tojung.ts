@@ -9,6 +9,19 @@ const STEM_NUM = [9, 8, 7, 6, 5, 9, 8, 7, 6, 5];
 const BRANCH_NUM = [9, 8, 7, 6, 5, 4, 9, 8, 7, 6, 5, 4];
 export const seoncheonsu = (p: Pillar) => STEM_NUM[p.stem]! + BRANCH_NUM[p.branch]!;
 
+/**
+ * 토정비결 조견표의 지지 몫. 천간 몫은 세 수 모두 선천수이고, 지지 몫만 다르다.
+ * - 월건수: 지지도 선천수 (= 선천수 합)
+ * - 일진수: 子9 丑11 寅8 卯8 辰11 巳7 午7 未11 申10 酉10 戌11 亥9
+ * - 태세수: 일진수의 지지 몫 + 2
+ * 전통 조견표 60갑자 × 3칸(180개) 중 179개와 일치한다. 乙丑 태세수만 표에 20으로 실려 있으나
+ * 다른 丑 다섯 칸이 모두 이 규칙(21)을 따라 표의 오기로 본다. (docs/saju-rules.md)
+ */
+const ILJIN_BRANCH = [9, 11, 8, 8, 11, 7, 7, 11, 10, 10, 11, 9];
+export const taeseNum = (p: Pillar) => STEM_NUM[p.stem]! + ILJIN_BRANCH[p.branch]! + 2;
+export const wolgeonNum = (p: Pillar) => seoncheonsu(p);
+export const iljinNum = (p: Pillar) => STEM_NUM[p.stem]! + ILJIN_BRANCH[p.branch]!;
+
 export interface LunarDate {
   year: number;
   month: number;
@@ -60,7 +73,7 @@ export const lunarMonthPillar = (yearStem: number, lunarMonth: number) =>
   makePillar((yearStem % 5) * 2 + 2 + (lunarMonth - 1), lunarMonth + 1);
 
 /**
- * 토정비결 작괘 (선천수 방식)
+ * 토정비결 작괘 (전통 조견표의 태세수·월건수·일진수)
  * - 상괘 = (세는나이 + 당년 태세수) ÷ 8 의 나머지
  * - 중괘 = (당년 생월 날수 + 당년 생월 월건수) ÷ 6 의 나머지
  * - 하괘 = (음력 생일 + 당년 생일 일진수) ÷ 3 의 나머지
@@ -69,15 +82,15 @@ export const lunarMonthPillar = (yearStem: number, lunarMonth: number) =>
 export function tojungGwae(birthLunar: LunarDate, targetYear: number): TojungGwae {
   const age = targetYear - birthLunar.year + 1;
   const taesePillar = yearGanji(targetYear);
-  const taese = seoncheonsu(taesePillar);
+  const taese = taeseNum(taesePillar);
 
   const monthDays = lunarMonthDays(targetYear, birthLunar.month);
   const wolgeonPillar = lunarMonthPillar(taesePillar.stem, birthLunar.month);
-  const wolgeon = seoncheonsu(wolgeonPillar);
+  const wolgeon = wolgeonNum(wolgeonPillar);
 
   const s = lunarToSolar(targetYear, birthLunar.month, birthLunar.day);
   const iljinPillar = dayPillar(s.year, s.month, s.day);
-  const iljin = seoncheonsu(iljinPillar);
+  const iljin = iljinNum(iljinPillar);
 
   const r = (n: number, m: number) => n % m || m;
   const upper = r(age + taese, 8);
