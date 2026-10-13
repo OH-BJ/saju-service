@@ -92,3 +92,24 @@ export const ELEMENT_LUCK: Record<Element, { numbers: [number, number]; color: s
 
 /** 날짜 등으로 문구 변형을 고를 때 쓰는 간단한 해시 */
 export const pick = <T>(list: readonly T[], seed: number): T => list[mod(seed, list.length)]!;
+
+/** 문장 끝맺음 (마지막 어절 + 문장부호) */
+const ending = (t: string) => t.trim().split(/\s+/).pop() ?? "";
+const sentences = (t: string) => t.split(/(?<=[.?!])\s+/).filter(Boolean);
+
+/**
+ * 후보 문장들 가운데, 뒤에 붙을 문장과 끝맺음이 겹치지 않는 것을 고른다.
+ * (예: 두 문장이 모두 "어떨까요?"로 끝나는 것을 피한다.) 모두 겹치면 preferred를 쓴다.
+ */
+export function pickVaried(candidates: readonly string[], preferred: number, next: string): string {
+  const first = sentences(next)[0] ?? next;
+  const nextEnd = ending(first);
+  const nextQ = first.trim().endsWith("?");
+  const order = candidates.map((_, k) => (preferred + k) % candidates.length);
+  for (const k of order) {
+    const c = candidates[k]!;
+    const last = sentences(c).pop() ?? c;
+    if (ending(last) !== nextEnd && !(nextQ && last.trim().endsWith("?"))) return c;
+  }
+  return candidates[preferred % candidates.length]!;
+}

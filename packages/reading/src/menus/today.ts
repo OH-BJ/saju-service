@@ -35,7 +35,8 @@ export function buildTodayReading(chart: Chart, date: { year: number; month: num
   const seed = date.year * 372 + date.month * 31 + date.day;
   const us = unseong12(chart.pillars.day.stem, iljin.branch);
   // 점수 = 일진이 반가운 정도(용신·일지 관계) + 오늘 지지 위 일간의 힘(12운성). 무작위 요소 없음
-  const score = Math.max(30, Math.min(97, 52 + (tone - 3) * 12 + (UNSEONG_POWER[us] ?? 0)));
+  // 박하게 느껴지지 않도록 40~90 사이에 모이게 한다 (가장 조심할 날 ≈ 40, 가장 순한 날 ≈ 88)
+  const score = Math.max(40, Math.min(92, Math.round(62 + (tone - 3) * 9 + (UNSEONG_POWER[us] ?? 0) * 0.75)));
   const yong = ELEMENT_LUCK[chart.analysis.yongsin.element];
   const branchLine = TODAY_BRANCH[dayBranchRel?.type ?? "없음"] ?? TODAY_BRANCH["없음"] ?? "";
 

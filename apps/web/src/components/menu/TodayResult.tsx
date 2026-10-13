@@ -5,6 +5,7 @@ import { buildTodayReading, toAiRequest } from "@saju/reading";
 import { useState } from "react";
 import { IljinCalendar } from "@/components/chart/IljinCalendar";
 import { AiReading } from "@/components/reading/AiReading";
+import { ShareCardButton } from "@/components/reading/ShareCardButton";
 import { Chapters } from "@/components/reading/Chapters";
 import { menuOf } from "@/lib/menus";
 import { ResultShell } from "./ResultShell";
@@ -57,6 +58,11 @@ export function TodayResult() {
               </p>
             </article>
 
+            <ShareCardButton
+              label="오늘 카드 저장"
+              filename={`mukyeon-${date.year}${String(date.month).padStart(2, "0")}${String(date.day).padStart(2, "0")}.png`}
+              data={{ kind: "day", dateLabel: `${date.year}년 ${date.month}월 ${date.day}일 (${dow})`, iljin: r.iljin.hanja, score: r.score, headline: r.headline, footnote: "오늘의 일진" }}
+            />
             <ul className="grid grid-cols-1 gap-x-6 sm:grid-cols-2">
               {r.items.map((it) => (
                 <li key={it.key} className="border-t border-ink/20 py-3">

@@ -1,5 +1,5 @@
 import { chartSlots, findRelations, monthsOfYear, yearGanji, BRANCHES, STEMS, type Chart, type Pillar, type Relation, type Slot } from "@saju/engine";
-import { SLOT_NAME, groupOf, luckInfo, luckTone, pillarLabel, toneKey, josa } from "../common.js";
+import { SLOT_NAME, groupOf, luckInfo, luckTone, pickVaried, pillarLabel, toneKey, josa } from "../common.js";
 import { MONTH_BRANCH, PERIOD } from "../content/period.js";
 import { RELATIONS } from "../content/relations.js";
 import { SIPSIN_GROUP, type SipsinGroup } from "../content/sipsin.js";
@@ -70,7 +70,8 @@ export function buildNewyearReading(chart: Chart, year: number): NewyearReading 
     const mt = luckTone(chart, m.pillar, mr);
     const tk = toneKey(mt);
     // 천간(앞 보름)의 문장 + 지지(생활 바탕)의 문장
-    const text = `${PERIOD[groupOf(mi.stemSipsin)][tk][i % 2]!} ${MONTH_BRANCH[mi.branchSipsin]?.[tk] ?? ""}`.trim();
+    const tail = MONTH_BRANCH[mi.branchSipsin]?.[tk] ?? "";
+    const text = `${pickVaried(PERIOD[groupOf(mi.stemSipsin)][tk], i, tail)} ${tail}`.trim();
     const relText = mr[0] ? ` 이달은 ${describeRel(mr[0])}이 있어 ${RELATIONS[mr[0].type].withLuck}` : "";
     const [, mo, d] = m.startDate.split("-");
     return {

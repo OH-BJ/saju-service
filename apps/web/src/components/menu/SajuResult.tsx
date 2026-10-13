@@ -1,12 +1,14 @@
 "use client";
 
-import { stemElement } from "@saju/engine";
+import { BRANCHES, STEMS, stemElement, type PillarKey } from "@saju/engine";
 import { buildSajuReading, toAiRequest } from "@saju/reading";
 import { OhaengPentagon } from "@/components/chart/OhaengPentagon";
 import { PillarSlab } from "@/components/chart/PillarSlab";
 import { Byeongpung } from "@/components/ink/Byeongpung";
 import { AiReading } from "@/components/reading/AiReading";
 import { Chapters } from "@/components/reading/Chapters";
+import { ShareCardButton } from "@/components/reading/ShareCardButton";
+import { callName } from "@/lib/birth";
 import { menuOf, targetYear } from "@/lib/menus";
 import { ResultShell } from "./ResultShell";
 
@@ -30,6 +32,19 @@ export function SajuResult() {
             {chart.correctedTime && (
               <p className="-mt-4 text-center font-sans text-[11px] text-ink-soft">시주는 태양시 {chart.correctedTime.slice(11)} 기준으로 세웠습니다.</p>
             )}
+            <ShareCardButton
+              filename={`mukyeon-${chart.pillars.day.hangul}.png`}
+              data={{
+                kind: "pillars",
+                title: r.headline,
+                subline: r.subline,
+                columns: (["hour", "day", "month", "year"] as PillarKey[]).map((k) => {
+                  const p = chart.pillars[k];
+                  return { label: { hour: "時", day: "日", month: "月", year: "年" }[k], stem: p ? STEMS[p.stem]! : null, branch: p ? BRANCHES[p.branch]! : null, isDay: k === "day" };
+                }),
+                footnote: `${callName(s!.person)}의 사주명식`,
+              }}
+            />
             <Chapters chapters={[summary!]} />
             <OhaengPentagon counts={chart.analysis.ohaeng} dayElement={stemElement(chart.pillars.day.stem)} yongsin={chart.analysis.yongsin.element} />
             <Chapters chapters={rest.slice(0, rest.length - 1)} start={1} />

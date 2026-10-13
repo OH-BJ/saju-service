@@ -92,7 +92,8 @@ describe("메뉴별 해석", () => {
     const a = buildTodayReading(me, { year: 2026, month: 10, day: 13 });
     const b = buildTodayReading(me, { year: 2026, month: 10, day: 14 });
     expect(a.iljin.hanja).not.toBe(b.iljin.hanja);
-    expect(a.score).toBeGreaterThanOrEqual(30);
+    expect(a.score).toBeGreaterThanOrEqual(40);
+    expect(a.score).toBeLessThanOrEqual(92);
     expectClean(allText(a));
   });
 
@@ -105,6 +106,14 @@ describe("메뉴별 해석", () => {
       for (const it of r.items) expect(it.text.length, it.key).toBeGreaterThan(5);
     }
     expect(texts.size).toBeGreaterThanOrEqual(50);
+  });
+
+  it("월운 풀이에서 질문형 문장이 연달아 오지 않는다", () => {
+    for (const c of [me, you, noHour]) {
+      for (const m of buildNewyearReading(c, 2027).months) {
+        expect(m.text, m.label).not.toMatch(/\?\s+[^.?!]*\?/);
+      }
+    }
   });
 
   it("신년 월운과 토정 월별 풀이는 문장을 공유하지 않는다", () => {
