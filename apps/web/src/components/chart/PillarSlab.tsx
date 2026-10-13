@@ -33,7 +33,7 @@ export function PillarSlab({ chart, detail = true }: { chart: Chart; detail?: bo
                 {detail && <span className="font-sans text-[10px] text-ink-soft">{s?.branch ?? ""}</span>}
                 <span className="mt-1 w-3/4 border-t border-ink pt-0.5 font-sans text-[10px] tracking-[0.2em] text-ink-soft">{label}</span>
                 {detail && (
-                  <span className="font-sans text-[9.5px] leading-tight text-ink-soft/80">
+                  <span className="font-sans text-[10px] leading-tight text-ink-soft">
                     {analysis.unseong12[key] ?? ""}
                     <br />
                     {analysis.sinsal12[key] ?? ""}

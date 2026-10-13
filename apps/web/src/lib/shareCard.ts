@@ -7,8 +7,8 @@ const H = 1350;
 const C = {
   hanji: "#f1ece1",
   ink: "#1c1a17",
-  ink2: "#3d3832",
-  soft: "#7a7268",
+  ink2: "#2b2723",
+  soft: "#5c554c",
   seal: "#b3261e",
   sealText: "#fbe9d0",
 };
@@ -118,9 +118,9 @@ function drawPillars(ctx: CanvasRenderingContext2D, d: PillarCardData) {
     if (c.isDay && c.stem) sealBox(ctx, cx - 82, top, 164);
     ctx.font = `150px ${BRUSH}`;
     ctx.textBaseline = "middle";
-    ctx.fillStyle = c.isDay ? C.sealText : c.stem ? C.ink : "#b5ab9c";
+    ctx.fillStyle = c.isDay ? C.sealText : c.stem ? C.ink : "#958b7d";
     ctx.fillText(c.stem ?? "?", cx, top + 86);
-    ctx.fillStyle = c.branch ? C.ink : "#b5ab9c";
+    ctx.fillStyle = c.branch ? C.ink : "#958b7d";
     ctx.fillText(c.branch ?? "?", cx, top + 260);
     ctx.strokeStyle = C.ink;
     ctx.lineWidth = 2;
