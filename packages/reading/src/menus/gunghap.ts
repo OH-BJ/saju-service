@@ -35,8 +35,8 @@ export function buildGunghapReading(a: Chart, b: Chart, names: { a: string; b: s
   const key = pairKey(a, b);
   const base = PAIR[key]!;
   // 같은 오행끼리는 오행에 맞는 비유로 제목을 바꾼다
-  const sameImage = ["나무", "불꽃", "봉우리", "칼날", "물줄기"][stemElement(a.pillars.day.stem)]!;
-  const pair = key === "same" ? { ...base, title: `나란히 선 두 ${sameImage}` } : base;
+  const sameImage = ["나란히 선 두 나무", "나란히 타는 두 불꽃", "어깨를 맞댄 두 봉우리", "나란히 벼린 두 칼날", "나란히 흐르는 두 물줄기"][stemElement(a.pillars.day.stem)]!;
+  const pair = key === "same" ? { ...base, title: sameImage } : base;
   const band = SCORE_BAND.find((x) => g.score >= x.min) ?? SCORE_BAND[SCORE_BAND.length - 1]!;
   const fill = (t: string) => fillNames(t, names.a, names.b);
   const an = names.a ? `${names.a}님` : "본인";

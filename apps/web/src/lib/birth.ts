@@ -60,5 +60,5 @@ export function describePerson(p: Person): string {
   return `${p.year}. ${pad(p.month)}. ${pad(p.day)} ${CAL_LABEL[p.calendar]} · ${p.time || "시간 모름"} · ${p.gender === "male" ? "남" : "여"}`;
 }
 
-/** 이름이 있으면 "OO님", 없으면 "당신" */
-export const callName = (p: Person) => (p.name.trim() ? `${p.name.trim()}님` : "당신");
+/** 이름이 있으면 "OO님", 없으면 "당신"(궁합 상대는 "상대") */
+export const callName = (p: Person, fallback = "당신") => (p.name.trim() ? `${p.name.trim()}님` : fallback);

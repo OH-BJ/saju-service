@@ -52,7 +52,7 @@ export function GunghapResult() {
                       {STEMS[s.chart.pillars.day.stem]}
                       {BRANCHES[s.chart.pillars.day.branch]}
                     </span>
-                    <span className="font-sans text-xs text-ink-soft">{callName(s.person)}</span>
+                    <span className="font-sans text-xs text-ink-soft">{callName(s.person, i === 0 ? "본인" : "상대")}</span>
                   </div>
                 ))}
               </div>

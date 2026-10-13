@@ -79,7 +79,7 @@ export function ResultShell({
               <p className="font-sans text-[11px] tracking-[0.35em] text-ink-soft">{menu.title}</p>
               {subjects.map((s, i) => (
                 <p key={i} className="mt-1 font-sans text-xs text-ink-soft">
-                  <b className="font-serif text-sm text-ink">{callName(s.person)}</b> · {describePerson(s.person)}
+                  <b className="font-serif text-sm text-ink">{callName(s.person, i === 0 ? "당신" : "상대")}</b> · {describePerson(s.person)}
                 </p>
               ))}
             </div>
