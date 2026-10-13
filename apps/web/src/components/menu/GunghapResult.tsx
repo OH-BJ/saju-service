@@ -52,7 +52,7 @@ export function GunghapResult() {
                       {STEMS[s.chart.pillars.day.stem]}
                       {BRANCHES[s.chart.pillars.day.branch]}
                     </span>
-                    <span className="font-sans text-xs text-ink-soft">{callName(s.person, i === 0 ? "본인" : "상대")}</span>
+                    <span className="font-sans text-[13px] text-ink-soft">{callName(s.person, i === 0 ? "본인" : "상대")}</span>
                   </div>
                 ))}
               </div>
@@ -60,12 +60,12 @@ export function GunghapResult() {
               <h1 className="brush font-brush text-[28px] leading-tight" style={{ animationDelay: ".8s" }}>
                 {r.bandTitle}
               </h1>
-              <p className="ink-in font-sans text-sm text-ink-soft" style={{ animationDelay: "1s" }}>
+              <p className="ink-in font-sans text-[15px] text-ink-soft" style={{ animationDelay: "1s" }}>
                 {r.pairTitle}
               </p>
             </header>
             <Chapters chapters={r.chapters} />
-            <details className="font-sans text-sm text-ink-soft">
+            <details className="font-sans text-[15px] text-ink-soft">
               <summary className="cursor-pointer">두 사람의 명식 보기</summary>
               <div className="mt-4 flex flex-col gap-6">
                 <PillarSlab chart={a!.chart} detail={false} />

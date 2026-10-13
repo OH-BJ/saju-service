@@ -45,17 +45,17 @@ export function OhaengPentagon({ counts, dayElement, yongsin }: { counts: number
                 <circle cx={x} cy={y} r={9} fill="none" stroke="#958b7d" strokeDasharray="2 3" />
               )}
               {i === dayElement && <circle cx={x} cy={y} r={r + 5} fill="none" stroke="#b3261e" strokeWidth="1.2" />}
-              <text x={x} y={y + 6} textAnchor="middle" fontFamily="Song Myung, serif" fontSize="19" fill="#1c1a17">
+              <text x={x} y={y + 6} textAnchor="middle" fontFamily="Song Myung, serif" fontSize="20" fill="#1c1a17">
                 {ELEMENTS[i]}
               </text>
-              <text x={x} y={y + r + 14} textAnchor="middle" fontSize="10.5" fill="#5c554c" fontFamily="IBM Plex Sans KR, sans-serif">
+              <text x={x} y={y + r + 14} textAnchor="middle" fontSize="11.5" fill="#5c554c" fontFamily="IBM Plex Sans KR, sans-serif">
                 {n}개 · {Math.round((n / total) * 100)}%{yongsin === i ? " · 용신" : ""}
               </text>
             </g>
           );
         })}
       </svg>
-      <figcaption className="font-sans text-[11px] text-ink-soft">
+      <figcaption className="font-sans text-[12px] text-ink-soft">
         실선 화살표는 살려 주는 흐름(상생), 붉은 점선은 누르는 흐름(상극). 붉은 고리가 나(일간)의 오행입니다.
       </figcaption>
     </figure>

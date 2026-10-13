@@ -37,7 +37,7 @@ export function SealDrop({ pillars, caption, onDone }: { pillars: Pillars; capti
       role="dialog"
       aria-label="명식을 새기는 중. 누르면 건너뜁니다."
     >
-      <div className="relative mt-[12vh] h-6 w-full text-center font-sans text-xs tracking-[0.35em] text-ink-soft">
+      <div className="relative mt-[12vh] h-6 w-full text-center font-sans text-[13px] tracking-[0.35em] text-ink-soft">
         <span className="drop-cap-a absolute inset-x-0">인장을 새기는 중</span>
         <span className="drop-cap-b absolute inset-x-0">{caption}</span>
       </div>
@@ -72,7 +72,7 @@ export function SealDrop({ pillars, caption, onDone }: { pillars: Pillars; capti
                         {p ? BRANCHES[p.branch] : "?"}
                       </span>
                     </div>
-                    <span className="mt-1.5 w-3/4 border-t border-ink pt-0.5 font-sans text-[10px] tracking-[0.2em] text-ink-soft">{LABEL[k]}</span>
+                    <span className="mt-1.5 w-3/4 border-t border-ink pt-0.5 font-sans text-[11px] tracking-[0.2em] text-ink-soft">{LABEL[k]}</span>
                   </div>
                 );
               })}
@@ -80,7 +80,7 @@ export function SealDrop({ pillars, caption, onDone }: { pillars: Pillars; capti
           </div>
         </div>
       </div>
-      <p className="mb-10 font-sans text-[11px] text-ink-soft">화면을 누르면 건너뜁니다</p>
+      <p className="mb-10 font-sans text-[12px] text-ink-soft">화면을 누르면 건너뜁니다</p>
     </div>
   );
 }

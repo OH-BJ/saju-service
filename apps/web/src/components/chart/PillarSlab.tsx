@@ -20,7 +20,7 @@ export function PillarSlab({ chart, detail = true }: { chart: Chart; detail?: bo
             const s = analysis.sipsin[key];
             return (
               <div key={key} className="flex flex-col items-center gap-1" role="cell" style={{ transformStyle: "preserve-3d" }}>
-                {detail && <span className="font-sans text-[10px] text-ink-soft">{s?.stem ?? "모름"}</span>}
+                {detail && <span className="font-sans text-[11px] text-ink-soft">{s?.stem ?? "모름"}</span>}
                 <span
                   className={`grid size-12 place-items-center font-brush text-[40px] leading-none ${key === "day" ? "seal-mark" : p ? "carved" : "text-ink-faint"}`}
                   style={{ transform: `translateZ(${key === "day" ? 14 : 6}px)` }}
@@ -30,10 +30,10 @@ export function PillarSlab({ chart, detail = true }: { chart: Chart; detail?: bo
                 <span className={`grid size-12 place-items-center font-brush text-[40px] leading-none ${p ? "carved" : "text-ink-faint"}`} style={{ transform: "translateZ(6px)" }}>
                   {p ? BRANCHES[p.branch] : "?"}
                 </span>
-                {detail && <span className="font-sans text-[10px] text-ink-soft">{s?.branch ?? ""}</span>}
-                <span className="mt-1 w-3/4 border-t border-ink pt-0.5 font-sans text-[10px] tracking-[0.2em] text-ink-soft">{label}</span>
+                {detail && <span className="font-sans text-[11px] text-ink-soft">{s?.branch ?? ""}</span>}
+                <span className="mt-1 w-3/4 border-t border-ink pt-0.5 font-sans text-[11px] tracking-[0.2em] text-ink-soft">{label}</span>
                 {detail && (
-                  <span className="font-sans text-[10px] leading-tight text-ink-soft">
+                  <span className="font-sans text-[11px] leading-tight text-ink-soft">
                     {analysis.unseong12[key] ?? ""}
                     <br />
                     {analysis.sinsal12[key] ?? ""}

@@ -60,8 +60,8 @@ export function ResultShell({
   if ("error" in result) {
     return (
       <div className="flex flex-col gap-4 pt-16">
-        <p className="text-lg font-bold">{result.error}</p>
-        <Link href={menu.href} className="font-sans text-sm text-seal underline underline-offset-4">
+        <p className="text-[19px] font-bold">{result.error}</p>
+        <Link href={menu.href} className="font-sans text-[15px] text-seal underline underline-offset-4">
           다시 적으러 가기
         </Link>
       </div>
@@ -76,19 +76,19 @@ export function ResultShell({
         <div className="flex flex-col gap-8 pt-6">
           <div className="flex items-start justify-between gap-4">
             <div className="min-w-0">
-              <p className="font-sans text-[11px] tracking-[0.35em] text-ink-soft">{menu.title}</p>
+              <p className="font-sans text-[12px] tracking-[0.35em] text-ink-soft">{menu.title}</p>
               {subjects.map((s, i) => (
-                <p key={i} className="mt-1 font-sans text-xs text-ink-soft">
-                  <b className="font-serif text-sm text-ink">{callName(s.person, i === 0 ? "당신" : "상대")}</b> · {describePerson(s.person)}
+                <p key={i} className="mt-1 font-sans text-[13px] text-ink-soft">
+                  <b className="font-serif text-[15px] text-ink">{callName(s.person, i === 0 ? "당신" : "상대")}</b> · {describePerson(s.person)}
                 </p>
               ))}
             </div>
-            <Link href={menu.href} className="shrink-0 font-sans text-xs text-ink-soft underline underline-offset-4">
+            <Link href={menu.href} className="shrink-0 font-sans text-[13px] text-ink-soft underline underline-offset-4">
               다시 입력
             </Link>
           </div>
           {subjects.flatMap((s) => s.chart.warnings).map((w) => (
-            <p key={w} className="border-l-2 border-seal pl-3 font-sans text-xs leading-5 text-seal">
+            <p key={w} className="border-l-2 border-seal pl-3 font-sans text-[13px] leading-5 text-seal">
               {w}
             </p>
           ))}
@@ -108,7 +108,7 @@ function OtherMenus({ current, query }: { current: string; query: string }) {
   for (const k of ["p", "n"]) if (q.get(k)) single.set(k, q.get(k)!);
   return (
     <nav aria-label="다른 풀이" className="mt-6">
-      <p className="font-sans text-[11px] tracking-[0.35em] text-ink-soft">같은 명식으로 더 보기</p>
+      <p className="font-sans text-[12px] tracking-[0.35em] text-ink-soft">같은 명식으로 더 보기</p>
       <ul className="mt-3 grid grid-cols-2 gap-2">
         {MENUS.filter((m) => m.key !== current).map((m) => (
           <li key={m.key}>
@@ -117,7 +117,7 @@ function OtherMenus({ current, query }: { current: string; query: string }) {
               className="flex items-center gap-3 rounded-sm border border-ink/20 px-3 py-2.5 hover:border-seal"
             >
               <span className="font-brush text-xl leading-none">{m.hanja}</span>
-              <span className="text-sm">{m.title}</span>
+              <span className="text-[15px]">{m.title}</span>
             </Link>
           </li>
         ))}

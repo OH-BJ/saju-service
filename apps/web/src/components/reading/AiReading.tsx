@@ -57,23 +57,23 @@ export function AiReading({ request, label = "붓으로 다시 쓴 풀이" }: { 
   return (
     <section className="hanji-sheet mt-6 rounded-sm px-5 py-6" aria-live="polite">
       <div className="flex items-center justify-between gap-3">
-        <h2 className="flex items-baseline gap-2 text-[17px] font-bold">
+        <h2 className="flex items-baseline gap-2 text-[18px] font-bold">
           <span className="font-brush text-2xl font-normal text-seal">筆</span>
           {label}
         </h2>
         {state.status !== "streaming" && (
-          <button type="button" onClick={start} className="rounded-full border border-ink px-4 py-1.5 font-sans text-xs tracking-[0.15em] hover:bg-ink hover:text-hanji">
+          <button type="button" onClick={start} className="rounded-full border border-ink px-4 py-1.5 font-sans text-[13px] tracking-[0.15em] hover:bg-ink hover:text-hanji">
             {state.status === "idle" ? "풀이 받기" : "다시 쓰기"}
           </button>
         )}
       </div>
       {state.status === "idle" && (
-        <p className="mt-2 font-sans text-[13px] leading-6 text-ink-soft">
+        <p className="mt-2 font-sans text-[14px] leading-6 text-ink-soft">
           위의 근거만 AI(Gemini)에게 넘겨 한 편의 글로 다시 씁니다. 이름과 생년월일은 보내지 않습니다.
         </p>
       )}
       {(state.status === "streaming" || state.status === "done") && (
-        <div className="mt-4 flex flex-col gap-3 text-[15px] leading-8 text-ink-2">
+        <div className="mt-4 flex flex-col gap-3 text-[16px] leading-8 text-ink-2">
           {state.text
             .split(/\n{2,}|\n/)
             .filter(Boolean)
@@ -85,7 +85,7 @@ export function AiReading({ request, label = "붓으로 다시 쓴 풀이" }: { 
           {state.status === "streaming" && <span className="inline-block h-4 w-1.5 animate-pulse bg-ink/60" aria-hidden="true" />}
         </div>
       )}
-      {state.status === "error" && <p className="mt-3 font-sans text-sm text-seal">{state.message}</p>}
+      {state.status === "error" && <p className="mt-3 font-sans text-[15px] text-seal">{state.message}</p>}
     </section>
   );
 }

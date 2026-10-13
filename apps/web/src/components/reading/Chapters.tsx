@@ -13,7 +13,7 @@ const TONE_CLS: Record<NonNullable<Evidence["tone"]>, string> = {
 
 export function EvidenceChip({ e }: { e: Evidence }) {
   const open = useTerm();
-  const cls = `inline-flex items-center gap-1 rounded-full border px-2.5 py-0.5 font-sans text-[11px] ${TONE_CLS[e.tone ?? "neutral"]}`;
+  const cls = `inline-flex items-center gap-1 rounded-full border px-2.5 py-0.5 font-sans text-[12px] ${TONE_CLS[e.tone ?? "neutral"]}`;
   if (!e.term) return <span className={cls}>{e.label}</span>;
   return (
     <button type="button" className={`${cls} hover:bg-ink/5`} onClick={() => open(e.term!)} aria-label={`${e.label} — ${e.term} 뜻 보기`}>
@@ -35,8 +35,8 @@ export function Chapters({ chapters, start = 0 }: { chapters: Chapter[]; start?:
             {NUMERALS[start + i]}
           </span>
           <div className="min-w-0">
-            <h2 className="text-[17px] leading-7 font-bold text-balance">{c.title}</h2>
-            <div className="mt-2 flex flex-col gap-3 text-[15px] leading-7 text-ink-2">
+            <h2 className="text-[18px] leading-7 font-bold text-balance">{c.title}</h2>
+            <div className="mt-2 flex flex-col gap-3 text-[16px] leading-7 text-ink-2">
               {c.body.map((p, j) => (
                 <p key={j}>{p}</p>
               ))}

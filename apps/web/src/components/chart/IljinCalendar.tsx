@@ -33,16 +33,16 @@ export function IljinCalendar({ chart, selected, today, onSelect }: { chart: Cha
   return (
     <section aria-label={`${year}년 ${month}월 일진 달력`} className="flex flex-col gap-2">
       <div className="flex items-baseline justify-between">
-        <h2 className="font-sans text-[11px] tracking-[0.4em] text-ink-soft">
+        <h2 className="font-sans text-[12px] tracking-[0.4em] text-ink-soft">
           {month} 월 일 진 달 력
         </h2>
-        <p className="font-sans text-[11px] text-ink-soft">
+        <p className="font-sans text-[12px] text-ink-soft">
           이달 가장 순한 날 {best.d.day}일 ({best.iljin})
         </p>
       </div>
       <div className="grid grid-cols-7 gap-1 text-center" role="grid">
         {WEEK.map((w, i) => (
-          <span key={w} className={`font-sans text-[10px] ${i === 0 ? "text-seal" : "text-ink-soft"}`} role="columnheader">
+          <span key={w} className={`font-sans text-[11px] ${i === 0 ? "text-seal" : "text-ink-soft"}`} role="columnheader">
             {w}
           </span>
         ))}
@@ -64,14 +64,14 @@ export function IljinCalendar({ chart, selected, today, onSelect }: { chart: Cha
               className={`relative flex aspect-square flex-col items-center justify-center rounded-sm leading-none ${isSel ? "ring-2 ring-seal" : ""}`}
               style={{ background: `rgb(28 26 23 / ${ink.toFixed(2)})`, color: ink > 0.38 ? "var(--color-hanji)" : "var(--color-ink)" }}
             >
-              <span className="font-sans text-[11px] tabular-nums">{d.day}</span>
-              <span className="mt-0.5 font-brush text-[10px] opacity-80">{iljin}</span>
+              <span className="font-sans text-[12px] tabular-nums">{d.day}</span>
+              <span className="mt-0.5 font-brush text-[11px] opacity-80">{iljin}</span>
               {isToday && <span className="absolute top-0.5 right-0.5 size-1.5 rounded-full bg-seal" aria-hidden="true" />}
             </button>
           );
         })}
       </div>
-      <p className="font-sans text-[10px] text-ink-soft">먹이 짙을수록 내 사주에 순한 날입니다. 붉은 점은 오늘.</p>
+      <p className="font-sans text-[11px] text-ink-soft">먹이 짙을수록 내 사주에 순한 날입니다. 붉은 점은 오늘.</p>
     </section>
   );
 }

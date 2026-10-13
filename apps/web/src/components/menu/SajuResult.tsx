@@ -24,13 +24,13 @@ export function SajuResult() {
           <>
             <header className="flex flex-col gap-2">
               <h1 className="brush font-brush text-[34px] leading-tight">{r.headline}</h1>
-              <p className="ink-in text-[15px] leading-7 text-ink-2" style={{ animationDelay: ".5s" }}>
+              <p className="ink-in text-[16px] leading-7 text-ink-2" style={{ animationDelay: ".5s" }}>
                 {r.subline}
               </p>
             </header>
             <PillarSlab chart={chart} />
             {chart.correctedTime && (
-              <p className="-mt-4 text-center font-sans text-[11px] text-ink-soft">시주는 태양시 {chart.correctedTime.slice(11)} 기준으로 세웠습니다.</p>
+              <p className="-mt-4 text-center font-sans text-[12px] text-ink-soft">시주는 태양시 {chart.correctedTime.slice(11)} 기준으로 세웠습니다.</p>
             )}
             <ShareCardButton
               filename={`mukyeon-${chart.pillars.day.hangul}.png`}

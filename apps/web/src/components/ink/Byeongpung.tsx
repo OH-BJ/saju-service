@@ -16,7 +16,7 @@ export function Byeongpung({ panels, title }: { panels: Panel[]; title?: string 
 
   return (
     <section className="flex flex-col gap-3">
-      {title && <h3 className="font-sans text-[11px] tracking-[0.4em] text-ink-soft">{title}</h3>}
+      {title && <h3 className="font-sans text-[12px] tracking-[0.4em] text-ink-soft">{title}</h3>}
       <div className="no-scrollbar -mx-5 overflow-x-auto px-5">
         <ol className="flex w-max py-2" style={{ perspective: 600 }}>
           {panels.map((p, i) => (
@@ -27,7 +27,7 @@ export function Byeongpung({ panels, title }: { panels: Panel[]; title?: string 
                 aria-pressed={open === i}
                 aria-label={`${p.label} ${p.pillar.hangul} 풀이 보기`}
                 data-fold={i % 2 ? "even" : "odd"}
-                className={`byeong-panel flex h-36 w-12 flex-col items-center justify-between py-2 font-sans text-[10px] ${
+                className={`byeong-panel flex h-36 w-12 flex-col items-center justify-between py-2 font-sans text-[11px] ${
                   open === i ? "text-seal" : "text-ink-soft"
                 } ${p.current ? "bg-seal-soft!" : ""}`}
                 style={{ ["--fold" as string]: open === i ? "6deg" : "22deg", animationDelay: `${0.15 + i * 0.07}s` }}
@@ -42,13 +42,13 @@ export function Byeongpung({ panels, title }: { panels: Panel[]; title?: string 
           ))}
         </ol>
       </div>
-      <p className="-mt-1 font-sans text-[10px] text-ink-soft">◎ 아주 순함 / ○ 순함 / · 보통 / ▽ 조심 / ▼ 많이 조심</p>
+      <p className="-mt-1 font-sans text-[11px] text-ink-soft">◎ 아주 순함 / ○ 순함 / · 보통 / ▽ 조심 / ▼ 많이 조심</p>
       {sel && (
         <div key={open} className="ink-in border-t border-ink/20 pt-3">
-          <p className="font-sans text-xs text-ink-soft">
+          <p className="font-sans text-[13px] text-ink-soft">
             {sel.label} · {sel.pillar.hanja}({sel.pillar.hangul}) · {sel.caption}
           </p>
-          <p className="mt-1 text-[15px] leading-7 text-ink-2">{sel.text}</p>
+          <p className="mt-1 text-[16px] leading-7 text-ink-2">{sel.text}</p>
         </div>
       )}
     </section>

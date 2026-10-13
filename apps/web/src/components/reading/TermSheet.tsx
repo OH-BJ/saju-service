@@ -37,15 +37,15 @@ export function TermProvider({ children }: { children: React.ReactNode }) {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-baseline justify-between">
-              <h2 id="term-title" className="flex items-baseline gap-2 text-lg font-bold">
+              <h2 id="term-title" className="flex items-baseline gap-2 text-[19px] font-bold">
                 {entry?.hanja && <span className="font-brush text-2xl font-normal">{entry.hanja}</span>}
                 {entry?.term ?? term}
               </h2>
-              <button type="button" className="font-sans text-sm text-ink-soft" onClick={() => setTerm(null)} autoFocus>
+              <button type="button" className="font-sans text-[15px] text-ink-soft" onClick={() => setTerm(null)} autoFocus>
                 닫기
               </button>
             </div>
-            <p className="mt-3 text-[15px] leading-7 text-ink-2">{entry?.body ?? "아직 설명을 준비하지 못한 용어입니다."}</p>
+            <p className="mt-3 text-[16px] leading-7 text-ink-2">{entry?.body ?? "아직 설명을 준비하지 못한 용어입니다."}</p>
           </div>
         </div>
       )}

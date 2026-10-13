@@ -26,11 +26,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <header className="mx-auto flex max-w-xl items-center justify-between px-5 pt-5">
           <Link href="/" className="flex items-baseline gap-2">
             <span className="font-brush text-2xl leading-none">墨緣</span>
-            <span className="font-sans text-xs tracking-[0.35em] text-ink-soft">묵 연</span>
+            <span className="font-sans text-[13px] tracking-[0.35em] text-ink-soft">묵 연</span>
           </Link>
         </header>
         <main className="mx-auto max-w-xl px-5 pb-16">{children}</main>
-        <footer className="mx-auto max-w-xl px-5 pb-10 font-sans text-[11px] leading-relaxed text-ink-soft">
+        <footer className="mx-auto max-w-xl px-5 pb-10 font-sans text-[12px] leading-relaxed text-ink-soft">
           사주 풀이는 재미와 참고를 위한 것이며 건강·재정·법률 등 중요한 결정의 근거가 될 수 없습니다. 입력한 생년월일은 서버에 저장하지 않습니다.
         </footer>
       </body>

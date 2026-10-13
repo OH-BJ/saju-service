@@ -10,7 +10,7 @@ export function MenuIntro({ menu, lines }: { menu: MenuInfo; lines: string[] }) 
         <div className="ink-in pt-10" style={{ animationDelay: ".5s" }}>
           <p className="text-xl font-bold">{menu.title}</p>
           {lines.map((l) => (
-            <p key={l} className="mt-1 font-sans text-[13px] leading-6 text-ink-soft">
+            <p key={l} className="mt-1 font-sans text-[14px] leading-6 text-ink-soft">
               {l}
             </p>
           ))}
