@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <div className="flex flex-col gap-8">
       <Sansu>
-        <div className="absolute top-6 right-6 flex flex-row-reverse items-start gap-2">
+        <div className="absolute top-5 right-9 flex flex-row-reverse items-start gap-2">
           <h1 className="brush font-brush text-[46px] leading-none tracking-[0.1em] [writing-mode:vertical-rl]">墨緣</h1>
           <span className="ink-in mt-1 font-sans text-[11px] tracking-[0.4em] text-ink-soft [writing-mode:vertical-rl]" style={{ animationDelay: ".6s" }}>
             먹 으 로 잇 는 인 연
