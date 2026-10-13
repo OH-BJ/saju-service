@@ -1,6 +1,6 @@
 import { dayGanji, monthGanjiOn, unseong12, BRANCHES, type Chart, type Pillar } from "@saju/engine";
 import { ELEMENT_LUCK, charElement, luckInfo, luckTone, pick, pillarLabel, josa } from "../common.js";
-import { TODAY, TODAY_BRANCH } from "../content/today.js";
+import { TODAY, TODAY_BRANCH, TODAY_BRANCH_SIPSIN, TODAY_UNSEONG } from "../content/today.js";
 import type { Tone } from "../content/types.js";
 import { UNSEONG } from "../content/unseong.js";
 import type { Chapter, ReadingBase } from "../types.js";
@@ -19,7 +19,7 @@ export interface TodayReading extends ReadingBase {
   wolun: Pillar;
   tone: Tone;
   score: number;
-  items: { key: "love" | "wish" | "work" | "money"; label: string; text: string }[];
+  items: { key: "mood" | "love" | "wish" | "work" | "money" | "condition"; label: string; text: string }[];
   tip: string;
   lucky: { color: string; direction: string; number: number };
 }
@@ -72,6 +72,8 @@ export function buildTodayReading(chart: Chart, date: { year: number; month: num
     tone,
     score,
     items: [
+      { key: "mood", label: "하루의 바탕", text: pick(TODAY_BRANCH_SIPSIN[info.branchSipsin] ?? [""], seed) },
+      { key: "condition", label: "기운의 세기", text: TODAY_UNSEONG[us] ?? "" },
       { key: "love", label: "애정", text: t.love },
       { key: "wish", label: "소망", text: t.wish },
       { key: "work", label: "일", text: t.work },

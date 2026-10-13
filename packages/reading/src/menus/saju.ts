@@ -22,6 +22,8 @@ import type { Chapter, Evidence, Panel, ReadingBase } from "../types.js";
 
 const GROUPS: SipsinGroup[] = ["비겁", "식상", "재성", "관성", "인성"];
 const KEYS: PillarKey[] = ["year", "month", "day", "hour"];
+/** 십신 묶음 칩을 눌렀을 때 열 대표 용어 */
+const GROUP_TERM: Record<SipsinGroup, string> = { 비겁: "비견", 식상: "식신", 재성: "정재", 관성: "정관", 인성: "정인" };
 
 export interface SajuReading extends ReadingBase {
   daeun: Panel[];
@@ -73,7 +75,7 @@ export function buildSajuReading(chart: Chart, targetYear: number): SajuReading 
     evidence: [
       { label: `일주 ${pillars.day.hanja}`, term: "일주" },
       { label: `일간 ${STEMS[ds]} ${elementName(dayEl)}`, term: "일간" },
-      ...(top ? [{ label: `${top} ${max}개`, term: top === "비겁" ? "비견" : undefined } as Evidence] : []),
+      ...(top ? [{ label: `${top} ${max}개`, term: GROUP_TERM[top] } as Evidence] : []),
     ],
   });
 
@@ -155,7 +157,7 @@ export function buildSajuReading(chart: Chart, targetYear: number): SajuReading 
           return t ? `${s.name}(${at}): ${t.detail} ${t.tip}` : `${s.name}(${at})`;
         })
       : ["두드러진 신살이 없는 담백한 사주입니다. 특별한 별에 기대기보다 스스로 쌓은 것이 그대로 결과가 됩니다."],
-    evidence: uniqStars.map((s) => ({ label: s.name, term: "12신살", tone: s.tone === "good" ? ("good" as const) : s.tone === "caution" ? ("caution" as const) : ("neutral" as const) })),
+    evidence: uniqStars.map((s) => ({ label: s.name, term: s.name, tone: s.tone === "good" ? ("good" as const) : s.tone === "caution" ? ("caution" as const) : ("neutral" as const) })),
   });
 
   // 6~9. 재물·애정·직업·건강

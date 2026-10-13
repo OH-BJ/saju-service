@@ -96,6 +96,23 @@ describe("메뉴별 해석", () => {
     expectClean(allText(a));
   });
 
+  it("오늘의 운세는 60일 동안 거의 매일 다른 글이 나온다", () => {
+    const texts = new Set<string>();
+    for (let i = 0; i < 60; i++) {
+      const d = new Date(Date.UTC(2026, 10, 1) + i * 86_400_000);
+      const r = buildTodayReading(me, { year: d.getUTCFullYear(), month: d.getUTCMonth() + 1, day: d.getUTCDate() });
+      texts.add(r.items.map((x) => x.text).join("|"));
+      for (const it of r.items) expect(it.text.length, it.key).toBeGreaterThan(5);
+    }
+    expect(texts.size).toBeGreaterThanOrEqual(50);
+  });
+
+  it("신년 월운과 토정 월별 풀이는 문장을 공유하지 않는다", () => {
+    const ny = buildNewyearReading(me, 2027).months.flatMap((m) => m.text.split(/(?<=[.?!])\s+/));
+    const tj = new Set(buildTojungReading(me, 2027).months.flatMap((m) => m.text.split(/(?<=[.?!])\s+/)));
+    expect(ny.filter((x) => tj.has(x))).toEqual([]);
+  });
+
   it("AI 요청에는 이름·생년월일이 없다", () => {
     const req = toAiRequest("saju", buildSajuReading(me, 2027));
     const s = JSON.stringify(req);

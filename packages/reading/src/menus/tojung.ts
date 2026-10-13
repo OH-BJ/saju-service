@@ -1,6 +1,6 @@
 import { lunarMonthsOfYear, toLunarDate, tojungGwae, type Chart, type TojungGwae } from "@saju/engine";
-import { ELEMENT_LUCK, luckInfo, luckTone, pillarLabel, toneKey } from "../common.js";
-import { PERIOD } from "../content/period.js";
+import { ELEMENT_LUCK, luckTone, pillarLabel } from "../common.js";
+import { LUNAR_MONTH_SCENE, TOJUNG_MONTH_TONE } from "../content/tojungMonths.js";
 import { TOJUNG } from "../content/tojung.js";
 import type { Tone, TojungGwaeText } from "../content/types.js";
 import type { Chapter, Panel, ReadingBase } from "../types.js";
@@ -25,7 +25,6 @@ export function buildTojungReading(chart: Chart, year: number): TojungReading {
   const s = gwae.steps;
 
   const months: Panel[] = lunarMonthsOfYear(year).map((m, i) => {
-    const info = luckInfo(chart, m.pillar);
     const rel = relationsWithLuck(chart, m.pillar).filter((r) => r.slots.includes("day.branch"));
     // 괘의 바탕(올해 전체 톤)과 그 달 월건이 내 사주와 맞는 정도를 섞는다
     const tone = toneAvg(text.tone, luckTone(chart, m.pillar, rel));
@@ -34,7 +33,7 @@ export function buildTojungReading(chart: Chart, year: number): TojungReading {
       pillar: m.pillar,
       caption: `양력 ${m.solarStart.month}/${m.solarStart.day}부터 · ${m.days === 30 ? "큰달" : "작은달"}`,
       tone,
-      text: PERIOD[info.groups[0]!][toneKey(tone)][(i + gwae.lower) % 2]!,
+      text: `${LUNAR_MONTH_SCENE[i]} ${TOJUNG_MONTH_TONE[tone][(i + gwae.code) % 3]}`,
     };
   });
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { GLOSSARY } from "@saju/reading";
+import { GLOSSARY, STARS } from "@saju/reading";
 import { createContext, useCallback, useContext, useEffect, useState } from "react";
 
 const TermCtx = createContext<(term: string) => void>(() => {});
@@ -10,7 +10,12 @@ export const useTerm = () => useContext(TermCtx);
 export function TermProvider({ children }: { children: React.ReactNode }) {
   const [term, setTerm] = useState<string | null>(null);
   const open = useCallback((t: string) => setTerm(t), []);
-  const entry = term ? GLOSSARY.find((g) => g.term === term || g.term.includes(term)) : null;
+  // 용어 사전 → 없으면 신살 설명에서 찾는다
+  const star = term ? STARS[term] : undefined;
+  const entry = term
+    ? (GLOSSARY.find((g) => g.term === term || g.term.includes(term)) ??
+      (star ? { term, hanja: undefined, body: `${star.short} ${star.detail} ${star.tip}` } : null))
+    : null;
 
   useEffect(() => {
     if (!term) return;

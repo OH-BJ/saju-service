@@ -3,6 +3,7 @@
 import { todayKst } from "@saju/engine";
 import { buildTodayReading, toAiRequest } from "@saju/reading";
 import { useState } from "react";
+import { IljinCalendar } from "@/components/chart/IljinCalendar";
 import { AiReading } from "@/components/reading/AiReading";
 import { Chapters } from "@/components/reading/Chapters";
 import { menuOf } from "@/lib/menus";
@@ -14,6 +15,8 @@ const shift = (d: { year: number; month: number; day: number }, n: number) => {
   return { year: t.getUTCFullYear(), month: t.getUTCMonth() + 1, day: t.getUTCDate() };
 };
 const WEEK = ["일", "월", "화", "수", "목", "금", "토"];
+const diffDays = (a: { year: number; month: number; day: number }, b: { year: number; month: number; day: number }) =>
+  Math.round((Date.UTC(a.year, a.month - 1, a.day) - Date.UTC(b.year, b.month - 1, b.day)) / DAY_MS);
 
 export function TodayResult() {
   const menu = menuOf("today");
@@ -66,6 +69,7 @@ export function TodayResult() {
               <b className="font-sans text-xs tracking-[0.2em] text-seal">오늘 해 볼 일 </b>
               {r.tip}
             </p>
+            <IljinCalendar chart={s!.chart} selected={date} today={base} onSelect={(d) => { setOffset(diffDays(d, base)); window.scrollTo({ top: 0, behavior: "smooth" }); }} />
             <Chapters chapters={r.chapters} />
             <AiReading key={`ai-${offset}`} request={toAiRequest("today", r)} label="오늘을 위한 한 편" />
           </>
