@@ -3,7 +3,7 @@
 생년월일시로 **사주명식을 계산**하고, 평생사주 · 신년운세 · 토정비결 · 궁합 · 오늘의 운세를 **근거와 함께** 풀어 주는 웹 서비스입니다.
 한지 · 먹 · 돌 인장 · 병풍을 입체로 옮긴 연출을 입혔습니다.
 
-**🔗 https://mukyeon.vercel.app**
+**🔗 https://oh-bj.github.io/saju-service/**
 
 ## 메뉴
 
@@ -16,7 +16,7 @@
 | 오늘의 운세 `/today` | 오늘 일진 × 일간 십신 · 12운성 · 일지 관계 | 부적 카드, 어제/내일 넘기기 |
 
 - **근거가 보이는 풀이**: 문단마다 근거 칩(예: `월지·일지 戌酉 해`)이 붙고, 누르면 용어 설명이 열립니다.
-- **AI 풀이(선택)**: 계산된 근거만 Gemini에 넘겨 한 편의 글로 다시 씁니다. 이름·생년월일은 보내지 않습니다.
+- **AI 풀이(꺼 둠)**: 계산된 근거만 Gemini에 넘겨 다시 쓰는 기능이 코드에 있지만, 근거에 없는 글자를 지어낼 위험이 있어 공개 사이트에서는 끕니다. 서버 배포에서만 켤 수 있습니다.
 - **입력은 한 번**: 이 기기(localStorage)에만 저장하고, 같은 명식으로 다른 메뉴를 바로 볼 수 있습니다.
 
 ## 연출
@@ -33,7 +33,7 @@
 
 ```
 apps/web/                 Next.js 16 (App Router, Tailwind 4)
-  src/app/                메뉴별 입력·결과 페이지, api/interpret (Gemini 스트리밍)
+  src/app/                메뉴별 입력·결과 페이지, api/interpret (Gemini 스트리밍, 서버 배포 전용)
   src/components/ink/     Sansu, SealDrop, Seal3D, Byeongpung, Tilt
   src/components/chart/   PillarSlab, OhaengPentagon
   src/components/reading/ Chapters(근거 칩), TermSheet(용어), AiReading
@@ -44,7 +44,7 @@ tools/crawler/            구조 조사·만세력 대조용 수집기 (Firecraw
 docs/                     PLAN.md(계획), saju-rules.md(계산 규칙)
 ```
 
-계산과 룰 해석은 **브라우저에서** 돌고, 서버는 AI 풀이 한 곳만 씁니다.
+계산과 풀이는 모두 **브라우저에서** 돌아 GitHub Pages 정적 배포로 충분합니다.
 
 ## 시작하기
 
@@ -56,7 +56,7 @@ pnpm --filter @saju/engine build && pnpm --filter @saju/reading build
 pnpm --filter @saju/web dev        # http://localhost:3000
 ```
 
-AI 풀이를 켜려면 `apps/web/.env.local`:
+AI 풀이를 로컬에서 켜려면 `apps/web/.env.local`:
 
 ```bash
 GEMINI_API_KEY=...
@@ -68,7 +68,7 @@ GEMINI_API_KEY=...
 ### 테스트
 
 ```bash
-pnpm --filter @saju/engine test    # 4주·시간대·음력·대운·외부 대조 + 관계·신살·신강약·토정·궁합 (45개)
+pnpm --filter @saju/engine test    # 4주·시간대·음력·대운·외부 대조 + 관계·신살·신강약·토정(조견표·공개 예시)·궁합 (47개)
 pnpm --filter @saju/reading test   # 문구 데이터 완결성, 메뉴별 해석, 조사 처리 (10개)
 ```
 
@@ -80,7 +80,13 @@ pnpm --filter @saju/reading test   # 문구 데이터 완결성, 메뉴별 해�
 
 ## 배포
 
-Vercel에 `apps/web`을 루트로 배포하고 환경변수 `GEMINI_API_KEY`를 넣습니다. 키가 없으면 AI 풀이 자리에 안내만 보이고 나머지는 그대로 동작합니다.
+`main`에 푸시하면 GitHub Actions가 테스트 후 정적 사이트를 GitHub Pages에 배포합니다 ([.github/workflows/pages.yml](.github/workflows/pages.yml)). 같은 빌드를 로컬에서 만들려면:
+
+```bash
+PAGES=1 BASE_PATH=/saju-service NEXT_PUBLIC_AI_ENABLED=0 pnpm --filter @saju/web build   # → apps/web/out/
+```
+
+AI 풀이까지 쓰려면 Node 서버(Vercel 등)에 `apps/web`을 배포하고 `GEMINI_API_KEY`를 넣으면 됩니다.
 
 ## 참고
 

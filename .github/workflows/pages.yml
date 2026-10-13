@@ -1,0 +1,56 @@
+name: Test & Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v4 # 버전은 package.json 의 packageManager 를 따른다
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: 엔진·해석 빌드와 테스트
+        run: |
+          pnpm --filter @saju/engine build
+          pnpm --filter @saju/reading build
+          pnpm --filter @saju/engine test
+          pnpm --filter @saju/reading test
+      - name: 정적 사이트 빌드 (AI 풀이 제외)
+        run: pnpm --filter @saju/web build
+        env:
+          PAGES: "1"
+          BASE_PATH: /${{ github.event.repository.name }}
+          NEXT_PUBLIC_AI_ENABLED: "0"
+      - run: touch apps/web/out/.nojekyll
+      - uses: actions/upload-pages-artifact@v4
+        if: github.ref == 'refs/heads/main'
+        with:
+          path: apps/web/out
+
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-24.04
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

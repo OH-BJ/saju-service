@@ -87,7 +87,7 @@
 | 상태 | Zustand (입력 프로필 + 로컬 저장) | |
 | AI | Gemini REST 스트리밍 | 사용자 선택, 타로 키 재사용 |
 | 테스트 | vitest (엔진·해석), Playwright 스모크 1~2개 | |
-| 배포 | **Vercel** (AI 사용), 저장소 `OH-BJ/saju-service` 유지 | GitHub Pages는 종료 |
+| 배포 | **GitHub Pages** 정적 배포, 저장소 `OH-BJ/saju-service` 유지 | 한때 Vercel(AI 풀이 포함)로 배포했으나, AI가 근거에 없는 글자를 지어낼 위험과 관리 부담 때문에 AI를 끄고 Pages로 돌아옴 (2026-10-13) |
 
 ---
 
@@ -134,13 +134,13 @@ saju-service/
 | 5 ✅ | 토정비결 (작괘 + 144괘 문구) · 궁합 (점수 + 비교) | 작괘 예시 대조 |
 | 6 ✅ | Gemini 해석 스트리밍 + 요청 제한 + 실패 대체 | 키 없을 때도 정상 동작 |
 | 7 | 공유 이미지, 메타, 접근성, 성능 점검 | Lighthouse 모바일 90+ |
-| 8 | Vercel 배포, README, 저장소 교체 푸시 | 배포 URL에서 5개 메뉴 동작 |
+| 8 ✅ | GitHub Pages 배포, README, 저장소 교체 푸시 | 배포 URL에서 5개 메뉴 동작 |
 | 9 (선택) | R3F 인장·산수 고급화 | 저사양 자동 대체 |
 
 ---
 
 ## 7. 주의사항
 - **저작권**: 외부 서비스 해석 문구·이미지 사용 금지. 크롤링 원문은 저장소에 올리지 않는다.
-- **비밀값**: `FIRECRAWL_API_KEY`, `GEMINI_API_KEY`는 `.env`/`.env.local`과 Vercel 환경변수에만.
+- **비밀값**: `FIRECRAWL_API_KEY`, `GEMINI_API_KEY`는 `.env`/`.env.local`에만. (AI를 다시 켜면 서버 환경변수에)
 - **개인정보**: 생년월일은 서버에 저장하지 않는다. AI 요청에도 이름은 보내지 않는다.
 - **면책**: 오락·참고용 문구를 모든 결과 하단에.

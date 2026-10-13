@@ -6,6 +6,13 @@ import { UNSEONG } from "../content/unseong.js";
 import type { Chapter, ReadingBase } from "../types.js";
 import { relationsWithLuck } from "./newyear.js";
 
+/** 12운성별 기운의 세기 (점수 가감) */
+const UNSEONG_POWER: Record<string, number> = {
+  장생: 6, 관대: 6, 건록: 8, 제왕: 8,
+  목욕: 2, 양: 2, 태: 0, 쇠: 0,
+  병: -4, 사: -4, 묘: -6, 절: -6,
+};
+
 export interface TodayReading extends ReadingBase {
   date: { year: number; month: number; day: number };
   iljin: Pillar;
@@ -27,7 +34,8 @@ export function buildTodayReading(chart: Chart, date: { year: number; month: num
   const t = TODAY[info.stemSipsin]!;
   const seed = date.year * 372 + date.month * 31 + date.day;
   const us = unseong12(chart.pillars.day.stem, iljin.branch);
-  const score = Math.max(30, Math.min(97, 50 + (tone - 3) * 13 + ((seed * 7) % 9) - 4));
+  // 점수 = 일진이 반가운 정도(용신·일지 관계) + 오늘 지지 위 일간의 힘(12운성). 무작위 요소 없음
+  const score = Math.max(30, Math.min(97, 52 + (tone - 3) * 12 + (UNSEONG_POWER[us] ?? 0)));
   const yong = ELEMENT_LUCK[chart.analysis.yongsin.element];
   const branchLine = TODAY_BRANCH[dayBranchRel?.type ?? "없음"] ?? TODAY_BRANCH["없음"] ?? "";
 
@@ -43,7 +51,7 @@ export function buildTodayReading(chart: Chart, date: { year: number; month: num
       evidence: [
         { label: `일진 ${iljin.hanja}`, term: "일진" },
         { label: `${info.stemSipsin}·${info.branchSipsin}`, term: info.stemSipsin },
-        { label: `12운성 ${us}`, term: "12운성" },
+        { label: `12운성 ${us} ${(UNSEONG_POWER[us] ?? 0) >= 0 ? "+" : ""}${UNSEONG_POWER[us] ?? 0}`, term: "12운성" },
         ...(dayBranchRel ? [{ label: `일지와 ${BRANCHES[iljin.branch]} ${dayBranchRel.type}`, term: dayBranchRel.type.includes("합") ? "합" : dayBranchRel.type === "충" ? "충" : "형·파·해", tone: dayBranchRel.tone === "harmony" ? ("good" as const) : ("caution" as const) }] : []),
       ],
     },
